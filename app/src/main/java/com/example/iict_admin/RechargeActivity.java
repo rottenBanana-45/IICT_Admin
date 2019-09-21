@@ -117,10 +117,20 @@ public class RechargeActivity extends AppCompatActivity implements ZXingScannerV
     @Override
     public void handleResult(Result result) {
 
-    }
+        final String out = result.getText();
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+        builder.setTitle("Output");
+        builder.setMessage(out);
 
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                scannerView.resumeCameraPreview(RechargeActivity.this);
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
